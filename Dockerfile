@@ -10,7 +10,7 @@ ENV AUTOSTART=True
 
 # Install required dependencies
 RUN apt-get update && \
-    apt-get install -y wget sudo xfce4 desktop-base xfce4-terminal xscreensaver xdg-utils
+    apt-get install -y wget sudo xfce4 desktop-base xfce4-terminal xscreensaver xdg-utils fonts-liberation libu2f-udev libvulkan1
 
 # Install Google Chrome
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
