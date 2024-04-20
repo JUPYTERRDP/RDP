@@ -1,20 +1,14 @@
 services:
   - name: chrome-remote-desktop
+    plan: starter
     env:
       - key: USERNAME
-        from_secret: username
+        value: "user"
       - key: PASSWORD
-        from_secret: password
+        value: "password"
       - key: CRP
-        from_secret: crp
+        value: "DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHDVKDuiOGt0z9lAiZKgalDrk4C3mtr7tXQXSDXIvWMd-85SLDv2h90CqTLQX63qLg" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
       - key: PIN
-        from_secret: pin
+        value: "123456"
       - key: AUTOSTART
         value: "true"
-    env_secrets:
-      - username
-      - password
-      - crp
-      - pin
-    plan: starter
-    dockerfile_path: Dockerfile
