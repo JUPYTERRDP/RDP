@@ -18,7 +18,7 @@ RUN wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.
 # Create and configure the user
 ARG USERNAME=user
 ARG PASSWORD=root
-ARG CRP="DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHDVKDuiOGt0z9lAiZKgalDrk4C3mtr7tXQXSDXIvWMd-85SLDv2h90CqTLQX63qLg" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
+ARG CRP="DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHBJvGI_Z-4ecqETr0LIyWEa4a6ifuk5Y9haaUx2kzIQvJSFVJYrwQPYRKEDKqDiOw" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
 ARG PIN=123456
 ARG AUTOSTART=True
 
@@ -51,5 +51,5 @@ RUN adduser $USERNAME chrome-remote-desktop && \
 # Expose Chrome Remote Desktop port
 EXPOSE 3389
 
-# Start Chrome Remote Desktop
-CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
+# Start Chrome Remote Desktop with the specified user name
+CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --user-name=$USERNAME --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
