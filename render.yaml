@@ -1,8 +1,20 @@
 services:
-  - name: my-service
-    envVars:
-      USERNAME: user
-      PASSWORD: root
-      CRP: "DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHC2lC6Yf6IEXdSRpzUU1Gz1JHrNXLJTLEKI4Hv5qM6hRRAA-TzgUINPqK-BvTJd8g" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
-      PIN: 123456
-      AUTOSTART: "True"
+  - name: chrome-remote-desktop
+    env:
+      - key: USERNAME
+        from_secret: username
+      - key: PASSWORD
+        from_secret: password
+      - key: CRP
+        from_secret: crp
+      - key: PIN
+        from_secret: DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHBVP96s42KPtc4tHN0w2LGCcNRaKA7GwRH5q871ghlH_vWvaqwlu79c_HDIXQnczg" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)
+      - key: AUTOSTART
+        value: "true"
+    env_secrets:
+      - username
+      - password
+      - crp
+      - DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHBVP96s42KPtc4tHN0w2LGCcNRaKA7GwRH5q871ghlH_vWvaqwlu79c_HDIXQnczg" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)
+    plan: starter
+    dockerfile_path: Dockerfile
