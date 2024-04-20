@@ -4,7 +4,7 @@ FROM python:3.9
 # Set environment variables
 ENV USERNAME=user
 ENV PASSWORD=root
-ENV CRP='' # Update with a valid OAuth token
+ENV CRP=""
 ENV PIN=123456
 ENV AUTOSTART=True
 
