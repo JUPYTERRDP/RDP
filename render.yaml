@@ -5,7 +5,7 @@ services:
       - key: USERNAME
         value: "user"
       - key: PASSWORD
-        value: "password"
+        value: "root"
       - key: CRP
         value: "DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHBJvGI_Z-4ecqETr0LIyWEa4a6ifuk5Y9haaUx2kzIQvJSFVJYrwQPYRKEDKqDiOw" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
       - key: PIN
