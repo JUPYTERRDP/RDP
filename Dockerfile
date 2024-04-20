@@ -4,7 +4,7 @@ FROM python:3.9
 # Set environment variables
 ENV USERNAME=user
 ENV PASSWORD=root
-ENV CRP="DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHAvGyEmuvH0lZ6DuyLIcrH9Gr1RohlpOeuMmvHPu6bO8E1C83-_MtizjDuYAQ6zsA" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
+ENV CRP="DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHC2lC6Yf6IEXdSRpzUU1Gz1JHrNXLJTLEKI4Hv5qM6hRRAA-TzgUINPqK-BvTJd8g" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
 ENV PIN=123456
 ENV AUTOSTART=True
 
@@ -50,4 +50,4 @@ RUN adduser $USERNAME chrome-remote-desktop && \
 EXPOSE 3389
 
 # Start Chrome Remote Desktop
-CMD ["sh", "-c", "/opt/google/chrome-remote-desktop/start-host --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
+CMD ["sh", "-c", "/opt/google/chrome-remote-desktop/start-host --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\" --user-name=$USERNAME"]
