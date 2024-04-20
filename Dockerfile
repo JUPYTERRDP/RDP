@@ -18,7 +18,7 @@ RUN wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.
 # Create and configure the user
 ARG USERNAME=user
 ARG PASSWORD=root
-ARG CRP="DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHDrQq8-52gXQX0UFMj6QaOgmXqV8B8naMYapicMy3E-xRGo-9RhW96ckevIFojkCg" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
+ARG CRP="DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHD2GjYW3pKIalvuf1QZPiqkf4Rk3hKNh_FLDrd5t8vx-blI3L96ZmXYJRIOW9JF7A" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
 ARG PIN=123456
 ARG AUTOSTART=True
 
@@ -53,5 +53,3 @@ EXPOSE 3389
 
 # Start Chrome Remote Desktop with the specified user name
 CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --user-name=$USERNAME --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
-
-docker build --build-arg USERNAME=user -t myimage:latest .
