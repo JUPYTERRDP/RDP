@@ -7,7 +7,7 @@ services:
       - key: PASSWORD
         value: "root"
       - key: CRP
-        value: "DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHD2GjYW3pKIalvuf1QZPiqkf4Rk3hKNh_FLDrd5t8vx-blI3L96ZmXYJRIOW9JF7A" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
+        value: "DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHAONvTdYyaOOaW7qRJ8K8PLUWJ7JVwYtAWpO4NT6vCBHUsOWFgUNT2Kh7QA5YNnJA" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
       - key: PIN
         value: "123456"
       - key: AUTOSTART
