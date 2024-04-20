@@ -4,7 +4,7 @@ FROM python:3.9
 # Set environment variables
 ENV USERNAME=user
 ENV PASSWORD=root
-ENV CRP="DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHAvGyEmuvH0lZ6DuyLIcrH9Gr1RohlpOeuMmvHPu6bO8E1C83-_MtizjDuYAQ6zsA" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
+ENV CRP=""
 ENV PIN=123456
 ENV AUTOSTART=True
 
@@ -12,15 +12,14 @@ ENV AUTOSTART=True
 RUN apt-get update && \
     apt-get install -y wget sudo xfce4 desktop-base xfce4-terminal xscreensaver xdg-utils fonts-liberation libu2f-udev libvulkan1
 
-# Copy chrome-remote-desktop package
-COPY chrome-remote-desktop_current_amd64.deb /tmp/chrome-remote-desktop_current_amd64.deb
-
 # Install Google Chrome
-RUN dpkg -i /tmp/chrome-remote-desktop_current_amd64.deb && \
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    dpkg -i google-chrome-stable_current_amd64.deb && \
     apt-get install -y --fix-broken
 
 # Install Chrome Remote Desktop
-RUN apt-get install -y /tmp/chrome-remote-desktop_current_amd64.deb && \
+RUN wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb && \
+    dpkg -i chrome-remote-desktop_current_amd64.deb && \
     apt-get install -y --fix-broken
 
 # Create and configure the user
