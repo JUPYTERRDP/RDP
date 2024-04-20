@@ -54,5 +54,4 @@ EXPOSE 3389
 # Start Chrome Remote Desktop with the specified user name
 CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --user-name=$USERNAME --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
 
-# Run the Docker build command
-RUN docker build --build-arg USERNAME=user -t myimage:latest .
+docker build --build-arg USERNAME=myuser -t myimage:latest .
