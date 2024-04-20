@@ -51,8 +51,5 @@ RUN adduser $USERNAME chrome-remote-desktop && \
 # Expose Chrome Remote Desktop port
 EXPOSE 3389
 
-# Set permissions for the Chrome Remote Desktop configuration directory
-RUN chown -R $USERNAME:$USERNAME /opt/google/chrome-remote-desktop
-
 # Start Chrome Remote Desktop with the specified user name
 CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --user-name=$USERNAME --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
