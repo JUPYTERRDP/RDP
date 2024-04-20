@@ -55,4 +55,4 @@ EXPOSE 3389
 CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --user-name=$USERNAME --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
 
 # Run the Docker build command
-docker build --build-arg USERNAME=user --build-arg PASSWORD=root --build-arg CRP=DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHDrQq8-52gXQX0UFMj6QaOgmXqV8B8naMYapicMy3E-xRGo-9RhW96ckevIFojkCg" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname) --build-arg PIN=123456 -t myimage:latest .
+RUN docker build --build-arg USERNAME=user -t myimage:latest .
