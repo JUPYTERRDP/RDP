@@ -1,6 +1,13 @@
 # Use a base image with Python installed
 FROM python:3.9
 
+# Set default values for build arguments
+ARG USERNAME=user
+ARG PASSWORD=root
+ARG CRP="DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHD2GjYW3pKIalvuf1QZPiqkf4Rk3hKNh_FLDrd5t8vx-blI3L96ZmXYJRIOW9JF7A" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
+ARG PIN=123456
+ARG AUTOSTART=True
+
 # Install required dependencies
 RUN apt-get update && \
     apt-get install -y wget sudo xfce4 desktop-base xfce4-terminal xscreensaver xdg-utils fonts-liberation libu2f-udev libvulkan1 xvfb xserver-xorg-video-dummy policykit-1 xbase-clients psmisc python3-packaging python3-psutil python3-xdg
@@ -16,12 +23,6 @@ RUN wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.
     apt-get install -y --fix-broken
 
 # Create and configure the user
-ARG USERNAME=user
-ARG PASSWORD=root
-ARG CRP="DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHD2GjYW3pKIalvuf1QZPiqkf4Rk3hKNh_FLDrd5t8vx-blI3L96ZmXYJRIOW9JF7A" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
-ARG PIN=123456
-ARG AUTOSTART=True
-
 RUN useradd -m $USERNAME && \
     adduser $USERNAME sudo && \
     echo "$USERNAME:$PASSWORD" | chpasswd && \
@@ -53,4 +54,3 @@ EXPOSE 3389
 
 # Start Chrome Remote Desktop with the specified user name
 CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --user-name=$USERNAME --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
-docker build --build-arg USERNAME=myuser -t myimage:latest .
