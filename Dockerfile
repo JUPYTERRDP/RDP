@@ -1,13 +1,6 @@
 # Use a base image with Python installed
 FROM python:3.9
 
-# Set environment variables
-ENV USERNAME=user
-ENV PASSWORD=root
-ENV CRP="DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHDVKDuiOGt0z9lAiZKgalDrk4C3mtr7tXQXSDXIvWMd-85SLDv2h90CqTLQX63qLg" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
-ENV PIN=123456
-ENV AUTOSTART=True
-
 # Install required dependencies
 RUN apt-get update && \
     apt-get install -y wget sudo xfce4 desktop-base xfce4-terminal xscreensaver xdg-utils fonts-liberation libu2f-udev libvulkan1 xvfb xserver-xorg-video-dummy policykit-1 xbase-clients psmisc python3-packaging python3-psutil python3-xdg
@@ -23,10 +16,19 @@ RUN wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.
     apt-get install -y --fix-broken
 
 # Create and configure the user
+ARG USERNAME=user
+ARG PASSWORD=root
+ARG CRP="DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHDVKDuiOGt0z9lAiZKgalDrk4C3mtr7tXQXSDXIvWMd-85SLDv2h90CqTLQX63qLg" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
+ARG PIN=123456
+ARG AUTOSTART=True
+
 RUN useradd -m $USERNAME && \
     adduser $USERNAME sudo && \
     echo "$USERNAME:$PASSWORD" | chpasswd && \
-    sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd
+    sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd && \
+    mkdir -p /home/$USERNAME/.config/chrome-remote-desktop && \
+    chown -R $USERNAME:$USERNAME /home/$USERNAME/.config/chrome-remote-desktop && \
+    chmod -R 700 /home/$USERNAME/.config/chrome-remote-desktop
 
 # Set up autostart for Colab
 RUN if [ "$AUTOSTART" = "True" ]; then \
@@ -50,4 +52,4 @@ RUN adduser $USERNAME chrome-remote-desktop && \
 EXPOSE 3389
 
 # Start Chrome Remote Desktop
-CMD ["sh", "-c", "/opt/google/chrome-remote-desktop/start-host --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\" --user-name=$USERNAME"]
+CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
