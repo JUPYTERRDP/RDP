@@ -3,6 +3,6 @@ services:
     envVars:
       USERNAME: user
       PASSWORD: root
-      CRP: "DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHAvGyEmuvH0lZ6DuyLIcrH9Gr1RohlpOeuMmvHPu6bO8E1C83-_MtizjDuYAQ6zsA" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
+      CRP: "DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHC2lC6Yf6IEXdSRpzUU1Gz1JHrNXLJTLEKI4Hv5qM6hRRAA-TzgUINPqK-BvTJd8g" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
       PIN: 123456
       AUTOSTART: "True"
