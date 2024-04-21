@@ -1,9 +1,14 @@
 # Use a base image with necessary dependencies
 FROM ubuntu:latest
 
+# Set noninteractive mode to prevent prompts during installation
+ENV DEBIAN_FRONTEND noninteractive
+
 # Install required packages
 RUN apt-get update && \
-    apt-get install -y wget sudo xfce4 desktop-base xfce4-terminal xscreensaver xdg-utils fonts-liberation libu2f-udev libvulkan1 xvfb xserver-xorg-video-dummy policykit-1 xbase-clients psmisc python3-packaging python3-psutil python3-xdg
+    apt-get install -y wget sudo xfce4 desktop-base xfce4-terminal xscreensaver xdg-utils fonts-liberation libu2f-udev libvulkan1 xvfb xserver-xorg-video-dummy policykit-1 xbase-clients psmisc python3-packaging python3-psutil python3-xdg && \
+    echo "keyboard-configuration keyboard-configuration/layout select English (US)" | debconf-set-selections && \
+    apt-get install -y keyboard-configuration
 
 # Install Google Chrome
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
