@@ -29,8 +29,7 @@ def load_config():
 def create_user(username, password):
     print("Creating User and Setting it up")
     os.system(f"useradd -m {username}")
-    os.system(f"adduser {username} sudo")
-    os.system(f"echo '{username}:{password}' | sudo chpasswd")
+    os.system(f"echo '{username}:{password}' | chpasswd")
     os.system("sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd")
     print(f"User created and configured having username `{username}` and password `{password}`")
 
