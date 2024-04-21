@@ -20,4 +20,4 @@ RUN useradd -m myuser && \
     echo "myuser:password" | chpasswd
 
 # Start Chrome Remote Desktop with the specified user name
-CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --user-name=myuser --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
+CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --user-name=user --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
