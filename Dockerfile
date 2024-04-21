@@ -11,7 +11,8 @@ RUN apt-get update && \
     apt-get install -y keyboard-configuration
 
 # Configure keyboard layout to English (US)
-RUN setxkbmap -layout us
+RUN echo "keyboard-configuration keyboard-configuration/layout select English (US)" | debconf-set-selections && \
+    dpkg-reconfigure -f noninteractive keyboard-configuration
 
 # Install Google Chrome
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
