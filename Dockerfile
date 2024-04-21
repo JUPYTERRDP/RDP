@@ -53,4 +53,4 @@ RUN adduser $USERNAME chrome-remote-desktop && \
 EXPOSE 3389
 
 # Start Chrome Remote Desktop with the specified user name
-CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --user-name=$USER --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
+CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --user-name=user --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
