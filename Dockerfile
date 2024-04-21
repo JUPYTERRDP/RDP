@@ -7,8 +7,11 @@ ENV DEBIAN_FRONTEND noninteractive
 # Install required packages
 RUN apt-get update && \
     apt-get install -y wget sudo xfce4 desktop-base xfce4-terminal xscreensaver xdg-utils fonts-liberation libu2f-udev libvulkan1 xvfb xserver-xorg-video-dummy policykit-1 xbase-clients psmisc python3-packaging python3-psutil python3-xdg && \
-    echo "keyboard-configuration keyboard-configuration/layout select English (US)" | debconf-set-selections && \
+    apt-get install -y x11-xkb-utils && \
     apt-get install -y keyboard-configuration
+
+# Configure keyboard layout to English (US)
+RUN setxkbmap -layout us
 
 # Install Google Chrome
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
@@ -23,10 +26,6 @@ RUN wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.
 # Add a non-root user (replace "myuser" with your preferred username)
 RUN useradd -m myuser && \
     echo "myuser:password" | chpasswd
-
-# Set keyboard layout to English (US)
-RUN apt-get install -y x11-xkb-utils && \
-    setxkbmap -layout us
 
 # Start Chrome Remote Desktop with the specified user name
 CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --user-name=myuser --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
