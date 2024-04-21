@@ -18,20 +18,12 @@ def main():
     setup_rdp(username, CRP, Pin, Autostart)
 
 def load_config():
-    # You can modify this function to load configuration from a file or prompt the user for input.
-    # For simplicity, I'll just prompt the user for input here.
-    username = input("Enter username: ")
-    password = input("Enter password: ")
-    CRP = input("Enter CRP: ")
-    Pin = input("Enter Pin: ")
-    Autostart = input("Autostart Notebook in RDP? (True/False): ").lower() == 'true'
-
     return {
-        'username': username,
-        'password': password,
-        'CRP': CRP,
-        'Pin': Pin,
-        'Autostart': Autostart
+        'username': os.environ.get('USERNAME'),
+        'password': os.environ.get('PASSWORD'),
+        'CRP': os.environ.get('CRP'),
+        'Pin': os.environ.get('PIN'),
+        'Autostart': os.environ.get('AUTOSTART', '').lower() == 'true'
     }
 
 def create_user(username, password):
