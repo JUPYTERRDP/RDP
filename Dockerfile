@@ -1,14 +1,7 @@
-# Use a base image with Python installed
-FROM python:3.9
+# Use a base image with necessary dependencies
+FROM ubuntu:latest
 
-# Set default values for build arguments
-ARG USERNAME=user
-ARG PASSWORD=root
-ARG CRP="DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHAklqrbH3Wj44Xio7IRq1d9gBELfodRrALKF4NG0K-qP7nhp3NE7TwBsoCI1i2sqg" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
-ARG PIN=123456
-ARG AUTOSTART=True
-
-# Install required dependencies
+# Install required packages
 RUN apt-get update && \
     apt-get install -y wget sudo xfce4 desktop-base xfce4-terminal xscreensaver xdg-utils fonts-liberation libu2f-udev libvulkan1 xvfb xserver-xorg-video-dummy policykit-1 xbase-clients psmisc python3-packaging python3-psutil python3-xdg
 
@@ -22,35 +15,9 @@ RUN wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.
     dpkg -i chrome-remote-desktop_current_amd64.deb && \
     apt-get install -y --fix-broken
 
-# Create and configure the user
-RUN useradd -m $USERNAME && \
-    adduser $USERNAME sudo && \
-    echo "$USERNAME:$PASSWORD" | chpasswd && \
-    sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd && \
-    mkdir -p /home/$USERNAME/.config/chrome-remote-desktop && \
-    chown -R $USERNAME:$USERNAME /home/$USERNAME/.config/chrome-remote-desktop && \
-    chmod -R 700 /home/$USERNAME/.config/chrome-remote-desktop
-
-# Set up autostart for Colab
-RUN if [ "$AUTOSTART" = "True" ]; then \
-        mkdir -p /home/$USERNAME/.config/autostart && \
-        echo "[Desktop Entry]\n\
-Type=Application\n\
-Name=Colab\n\
-Exec=sh -c \"sensible-browser https://youtu.be/d9ui27vVePY?si=TfVDVQOd0VHjUt_b\"\n\
-Icon=\n\
-Comment=Open a predefined notebook at session signin.\n\
-X-GNOME-Autostart-enabled=true" > /home/$USERNAME/.config/autostart/colab.desktop && \
-        chmod +x /home/$USERNAME/.config/autostart/colab.desktop && \
-        chown $USERNAME:$USERNAME /home/$USERNAME/.config; \
-    fi
-
-# Set up Chrome Remote Desktop
-RUN adduser $USERNAME chrome-remote-desktop && \
-    service chrome-remote-desktop start
-
-# Expose Chrome Remote Desktop port
-EXPOSE 3389
+# Add a non-root user (replace "myuser" with your preferred username)
+RUN useradd -m myuser && \
+    echo "myuser:password" | chpasswd
 
 # Start Chrome Remote Desktop with the specified user name
-CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --user-name=user --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
+CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --user-name=myuser --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
