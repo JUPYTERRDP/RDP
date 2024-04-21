@@ -4,7 +4,7 @@ FROM python:3.9
 # Set default values for build arguments
 ARG USERNAME=user
 ARG PASSWORD=root
-ARG CRP="DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHDlaKPbZi1iPrsR_zh9pNDnwgMz8ywbEk-dEU-lfSVSPw2jtTdBizUYIGeA-v1VNg" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
+ARG CRP="DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHDrs_KgF4z8qdUNeTkzioN3kV7YAPAPE8rtjbiUGJiUGULG-3uSROUc5gdhsx8MQA" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)"
 ARG PIN=123456
 ARG AUTOSTART=True
 
