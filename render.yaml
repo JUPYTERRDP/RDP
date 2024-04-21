@@ -3,8 +3,8 @@ services:
     plan: starter
     env:
       - key: CRP
-        from_secret: DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHAklqrbH3Wj44Xio7IRq1d9gBELfodRrALKF4NG0K-qP7nhp3NE7TwBsoCI1i2sqg" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)
+        from_secret: crp_token
       - key: PIN
-        from_secret: 123456
+        from_secret: pin_code
       - key: AUTOSTART
         value: "true"
