@@ -19,5 +19,9 @@ RUN wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.
 RUN useradd -m myuser && \
     echo "myuser:password" | chpasswd
 
+# Set keyboard layout (replace "us" with your desired layout)
+RUN apt-get install -y x11-xkb-utils && \
+    setxkbmap -layout us
+
 # Start Chrome Remote Desktop with the specified user name
 CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --user-name=myuser --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
