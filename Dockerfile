@@ -4,7 +4,7 @@ FROM python:3.9-slim
 # Set environment variables
 ENV USERNAME user
 ENV PASSWORD root
-ENV CRP DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHB60mhZB9u5zfL0nZR8VqzjQl0-Wljdmofma6mVuurzh_sk_vvWS1zkv40wssOfVA" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)
+ENV CRP DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AeaYSHDN1Q1XmTyl8G7WRL5Sz6m3TedHNqiyh2K_15mYi2Nv0cufpwdbVtbE9IPHRLwJAA" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)
 ENV PIN 123456
 ENV AUTOSTART True
 
