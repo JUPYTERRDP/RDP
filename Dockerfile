@@ -17,17 +17,17 @@ RUN useradd -m myuser && \
 # Switch to the non-root user
 USER myuser
 
-# Download and install Google Chrome
-RUN wget -q -O chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    sudo dpkg -i chrome.deb && \
+# Download Google Chrome and install it
+RUN wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    sudo dpkg -i /tmp/chrome.deb && \
     sudo apt-get install -y --fix-broken && \
-    rm chrome.deb
+    rm /tmp/chrome.deb
 
-# Download and install Chrome Remote Desktop
-RUN wget -q -O chrome-remote-desktop.deb https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb && \
-    sudo dpkg -i chrome-remote-desktop.deb && \
+# Download Chrome Remote Desktop and install it
+RUN wget -q -O /tmp/chrome-remote-desktop.deb https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb && \
+    sudo dpkg -i /tmp/chrome-remote-desktop.deb && \
     sudo apt-get install -y --fix-broken && \
-    rm chrome-remote-desktop.deb
+    rm /tmp/chrome-remote-desktop.deb
 
 # Configure keyboard layout to English (US)
 RUN echo "keyboard-configuration keyboard-configuration/layout select English (US)" | sudo debconf-set-selections && \
