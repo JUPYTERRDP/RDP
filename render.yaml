@@ -1,0 +1,14 @@
+services:
+  - name: chrome-remote-desktop
+    plan: starter
+    env:
+      - key: USERNAME
+        value: "user"
+      - key: PASSWORD
+        value: "root"
+      - key: CRP
+        value: "DISPLAY= /opt/google/chrome-remote-desktop/start-host --code=\"4/0AeaYSHCQcU7E_0IJQmJe_3btm1pf4vDJ526cObruWLYnzhyMdvMoyUbE9pxhBcJT1a47gQ\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\" --name=$(hostname)"
+      - key: PIN
+        value: "123456"
+      - key: AUTOSTART
+        value: "true"
