@@ -7,8 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Install required packages
 RUN apt-get update && \
     apt-get install -y wget sudo xfce4 desktop-base xfce4-terminal xscreensaver xdg-utils fonts-liberation libu2f-udev libvulkan1 xvfb xserver-xorg-video-dummy policykit-1 xbase-clients psmisc python3-packaging python3-psutil python3-xdg && \
-    apt-get install -y x11-xkb-utils && \
-    apt-get install -y keyboard-configuration
+    apt-get install -y x11-xkb-utils keyboard-configuration
 
 # Create a non-root user
 RUN useradd -m myuser && \
@@ -18,15 +17,17 @@ RUN useradd -m myuser && \
 # Switch to the non-root user
 USER myuser
 
-# Install Google Chrome
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    sudo dpkg -i google-chrome-stable_current_amd64.deb && \
-    sudo apt-get install -y --fix-broken
+# Download and install Google Chrome
+RUN wget -q -O chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    sudo dpkg -i chrome.deb && \
+    sudo apt-get install -y --fix-broken && \
+    rm chrome.deb
 
-# Install Chrome Remote Desktop
-RUN wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb && \
-    sudo dpkg -i chrome-remote-desktop_current_amd64.deb && \
-    sudo apt-get install -y --fix-broken
+# Download and install Chrome Remote Desktop
+RUN wget -q -O chrome-remote-desktop.deb https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb && \
+    sudo dpkg -i chrome-remote-desktop.deb && \
+    sudo apt-get install -y --fix-broken && \
+    rm chrome-remote-desktop.deb
 
 # Configure keyboard layout to English (US)
 RUN echo "keyboard-configuration keyboard-configuration/layout select English (US)" | sudo debconf-set-selections && \
