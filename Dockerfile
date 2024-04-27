@@ -27,5 +27,13 @@ RUN chmod +x /start_ngrok.sh
 # Start SSH service
 RUN service ssh start
 
+# Ensure SSH server is configured to allow root login and password authentication for debugging
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    service ssh restart
+
+# Verify SSH service status
+RUN service ssh status
+
 # Execute the start_ngrok.sh script as the entrypoint
 ENTRYPOINT ["/start_ngrok.sh"]
