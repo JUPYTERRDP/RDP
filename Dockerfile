@@ -10,6 +10,11 @@ RUN apt-get update && \
 EXPOSE 22
 EXPOSE 3389
 
+# Download ngrok
+RUN wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.zip -O ngrok.zip && \
+    unzip ngrok.zip && \
+    rm ngrok.zip
+
 # Copy the ngrok.yml configuration file into the container
 COPY ngrok.yml /ngrok.yml
 
