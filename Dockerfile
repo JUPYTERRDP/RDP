@@ -16,8 +16,14 @@ RUN unzip ngrok.zip && \
 # Set ngrok auth token environment variable
 ENV NGROK_AUTH_TOKEN="2fImcTPq1NnyclnXZePhudATr9y_6VQ6fcAAxUVpXtjcK6jvr"
 
-# Expose port for ngrok tunnel (if needed)
-# EXPOSE 3389
+# Copy the shell script into the container
+COPY start_ngrok.sh .
 
-# Set ngrok auth token and start ngrok tunnel as the entrypoint
-CMD ["./ngrok", "authtoken", "$NGROK_AUTH_TOKEN", "&&", "./ngrok", "tcp", "3389"]
+# Grant execute permissions to the shell script
+RUN chmod +x start_ngrok.sh
+
+# Expose port for ngrok tunnel (if needed)
+EXPOSE 3389
+
+# Execute the shell script as the entrypoint
+ENTRYPOINT ["./start_ngrok.sh"]
