@@ -1,4 +1,4 @@
-# Use the official Ubuntu image as the base
+# Use the official Ubuntu image
 FROM ubuntu:latest
 
 # Install necessary dependencies
@@ -20,4 +20,4 @@ ENV NGROK_AUTH_TOKEN="2fImcTPq1NnyclnXZePhudATr9y_6VQ6fcAAxUVpXtjcK6jvr"
 # EXPOSE 3389
 
 # Set ngrok auth token and start ngrok tunnel as the entrypoint
-ENTRYPOINT ["./ngrok", "authtoken", "2fImcTPq1NnyclnXZePhudATr9y_6VQ6fcAAxUVpXtjcK6jvr", "&&", "./ngrok", "tcp", "3389"]
+CMD ["./ngrok", "authtoken", "$NGROK_AUTH_TOKEN", "&&", "./ngrok", "tcp", "3389"]
