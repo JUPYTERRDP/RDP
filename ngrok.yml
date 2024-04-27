@@ -1,0 +1,9 @@
+authtoken: 2fg06HbVghcweVKhsVgEnxe0e6l_WWD2eFc5mx2QqGgjTg5M
+
+tunnels:
+  ssh:
+    proto: tcp
+    addr: 22
+  rdp:
+    proto: tcp
+    addr: 3389
