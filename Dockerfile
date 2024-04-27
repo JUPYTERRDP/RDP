@@ -1,4 +1,4 @@
-# Use the official Ubuntu image
+# Use the official Ubuntu image as the base
 FROM ubuntu:latest
 
 # Install necessary dependencies
@@ -13,17 +13,18 @@ RUN wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.zip -O ng
 RUN unzip ngrok.zip && \
     rm ngrok.zip
 
-# Set ngrok auth token environment variable
-ENV NGROK_AUTH_TOKEN="2fImcTPq1NnyclnXZePhudATr9y_6VQ6fcAAxUVpXtjcK6jvr"
+# Copy the ngrok.yml configuration file into the container
+COPY ngrok.yml /ngrok.yml
 
-# Copy the shell script into the container
-COPY start_ngrok.sh /start_ngrok.sh
-
-# Grant execute permissions to the shell script
-RUN chmod +x /start_ngrok.sh
-
-# Expose port for ngrok tunnel (if needed)
+# Expose ports for ngrok tunnels
+EXPOSE 22
 EXPOSE 3389
 
-# Execute the shell script as the entrypoint
+# Copy the start_ngrok.sh script into the container
+COPY start_ngrok.sh /start_ngrok.sh
+
+# Grant execute permissions to the start_ngrok.sh script
+RUN chmod +x /start_ngrok.sh
+
+# Execute the start_ngrok.sh script as the entrypoint
 ENTRYPOINT ["/start_ngrok.sh"]
