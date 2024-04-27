@@ -1,37 +1,23 @@
-# Use a base image with necessary dependencies
+# Use the official Ubuntu image as the base
 FROM ubuntu:latest
 
-# Set noninteractive mode to prevent prompts during installation
-ENV DEBIAN_FRONTEND noninteractive
-
-# Install required packages
+# Install necessary dependencies
 RUN apt-get update && \
-    apt-get install -y wget sudo xfce4 desktop-base xfce4-terminal xscreensaver xdg-utils fonts-liberation libu2f-udev libvulkan1 xvfb xserver-xorg-video-dummy policykit-1 xbase-clients psmisc python3-packaging python3-psutil python3-xdg && \
-    apt-get install -y x11-xkb-utils keyboard-configuration
+    apt-get install -y wget unzip && \
+    rm -rf /var/lib/apt/lists/*
 
-# Create a non-root user
-RUN useradd -m myuser && \
-    echo "myuser:password" | chpasswd && \
-    usermod -aG sudo myuser
+# Download ngrok
+RUN wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.zip -O ngrok.zip
 
-# Switch to the non-root user
-USER myuser
+# Extract ngrok
+RUN unzip ngrok.zip && \
+    rm ngrok.zip
 
-# Download Google Chrome and install it
-RUN wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    sudo dpkg -i /tmp/chrome.deb && \
-    sudo apt-get install -y --fix-broken && \
-    rm /tmp/chrome.deb
+# Set ngrok auth token environment variable
+ENV NGROK_AUTH_TOKEN="2fImcTPq1NnyclnXZePhudATr9y_6VQ6fcAAxUVpXtjcK6jvr"
 
-# Download Chrome Remote Desktop and install it
-RUN wget -q -O /tmp/chrome-remote-desktop.deb https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb && \
-    sudo dpkg -i /tmp/chrome-remote-desktop.deb && \
-    sudo apt-get install -y --fix-broken && \
-    rm /tmp/chrome-remote-desktop.deb
+# Expose port for ngrok tunnel (if needed)
+# EXPOSE 3389
 
-# Configure keyboard layout to English (US)
-RUN echo "keyboard-configuration keyboard-configuration/layout select English (US)" | sudo debconf-set-selections && \
-    sudo dpkg-reconfigure -f noninteractive keyboard-configuration
-
-# Start Chrome Remote Desktop with the specified user name
-CMD ["/bin/bash", "-c", "/opt/google/chrome-remote-desktop/start-host --user-name=myuser --code=\"$CRP\" --pin=\"$PIN\" --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\""]
+# Set ngrok auth token and start ngrok tunnel as the entrypoint
+ENTRYPOINT ["./ngrok", "authtoken", "2fImcTPq1NnyclnXZePhudATr9y_6VQ6fcAAxUVpXtjcK6jvr"]
