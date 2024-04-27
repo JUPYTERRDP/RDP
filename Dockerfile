@@ -23,7 +23,7 @@ COPY start_ngrok.sh /start_ngrok.sh
 RUN chmod +x /start_ngrok.sh
 
 # Expose port for ngrok tunnel (if needed)
-# EXPOSE 3389
+EXPOSE 3389
 
 # Execute the shell script as the entrypoint
 ENTRYPOINT ["/start_ngrok.sh"]
