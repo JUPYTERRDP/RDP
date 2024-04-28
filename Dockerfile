@@ -24,7 +24,7 @@ COPY start_ngrok.sh /start_ngrok.sh
 # Grant execute permissions to the start_ngrok.sh script
 RUN chmod +x /start_ngrok.sh
 
-# Start SSH service
+# Start SSH service explicitly
 RUN service ssh start
 
 # Ensure SSH server is configured to allow root login and password authentication for debugging
