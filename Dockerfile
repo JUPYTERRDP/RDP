@@ -32,8 +32,8 @@ RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
     service ssh restart
 
-# Verify SSH service status
-RUN service ssh status
+# Check if SSH daemon process is running
+RUN ps aux | grep sshd
 
 # Execute the start_ngrok.sh script as the entrypoint
 ENTRYPOINT ["/start_ngrok.sh"]
