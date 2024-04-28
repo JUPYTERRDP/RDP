@@ -1,10 +1,9 @@
-version: 2
-authtoken: 2fiNAw8gDUsFhMNsSrywBUWViS0_41VBSKDTQs5H1cuqusjq8
+authtoken: 2fiQ3RmTHQByFqmwAk1jcg0zc8L_6vSSWYJFPAPEoZ3mX97gQ
 
 tunnels:
   ssh:
-    proto: tcp
     addr: 22
-  rdp:
     proto: tcp
+  rdp:
     addr: 3389
+    proto: tcp
