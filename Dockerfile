@@ -14,7 +14,7 @@ RUN wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.zip -O ng
     && rm ngrok.zip
 
 # Set ngrok authtoken
-RUN /ngrok/ngrok authtoken 2fifZRLDDdDi4ZtjdROj0c0hRdd_7vfT5CYY1UW6B8Fi2xWWn
+RUN cp /ngrok/ngrok /usr/local/bin/ && /usr/local/bin/ngrok authtoken 2fifZRLDDdDi4ZtjdROj0c0hRdd_7vfT5CYY1UW6B8Fi2xWWn
 
 # Enable Terminal Services (TS)
 RUN sysctl -w net.ipv4.tcp_keepalive_time=200 net.ipv4.tcp_keepalive_intvl=200 net.ipv4.tcp_keepalive_probes=5
@@ -32,4 +32,4 @@ RUN echo 'runneradmin:P@ssw0rd!' | chpasswd
 EXPOSE 3389
 
 # Command to create ngrok tunnel
-CMD ["/ngrok/ngrok", "tcp", "3389"]
+CMD ["/usr/local/bin/ngrok", "tcp", "3389"]
