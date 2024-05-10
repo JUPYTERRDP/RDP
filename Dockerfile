@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     wget \
     unzip \
     xrdp \
+    openssh-server \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
@@ -25,8 +26,11 @@ RUN sysctl -w net.ipv4.tcp_keepalive_time=200 net.ipv4.tcp_keepalive_intvl=200 n
 # Enable Remote Desktop
 RUN systemctl enable xrdp
 
-# Set User Authentication
-RUN sed -i 's/^#*X11Forwarding.*/X11Forwarding yes/' /etc/ssh/sshd_config && systemctl restart sshd
+# Install and configure SSH server
+RUN apt-get update && apt-get install -y \
+    openssh-server \
+    && sed -i 's/^#*X11Forwarding.*/X11Forwarding yes/' /etc/ssh/sshd_config \
+    && systemctl restart ssh
 
 # Set Password for User
 RUN echo 'runneradmin:P@ssw0rd!' | chpasswd
