@@ -30,7 +30,7 @@ RUN systemctl enable xrdp
 RUN apt-get update && apt-get install -y \
     openssh-server \
     && sed -i 's/^#*X11Forwarding.*/X11Forwarding yes/' /etc/ssh/sshd_config \
-    && systemctl restart ssh
+    && service ssh start
 
 # Set Password for User
 RUN echo 'runneradmin:P@ssw0rd!' | chpasswd
